@@ -12,5 +12,6 @@ export class ChallengeEditComponent {
 
     onSetChallenge() {
         this.onEdit.emit(this.challengeDescription)
+        this.challengeDescription = ''
      }
 }

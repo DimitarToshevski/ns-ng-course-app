@@ -27,3 +27,7 @@ TextField {
     border-color: rgb(204, 83, 111);
 
 }
+
+.fs-big {
+    font-size: 30;
+}
