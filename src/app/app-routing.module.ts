@@ -11,7 +11,7 @@ const routes: Routes = [
     { path: '', component: AuthComponent },
     { path: 'today', component: TodayComponent},
     { path: 'current-challenge', component: CurrentChallengeComponent},
-    { path: 'today', component: ChallengeEditComponent}
+    { path: 'edit-challenge', component: ChallengeEditComponent}
 ];
 
 @NgModule({
