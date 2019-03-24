@@ -39,3 +39,7 @@ TextField {
 .fs-big {
     font-size: 30;
 }
+
+.fs-medium {
+    font-size: 20;
+}
