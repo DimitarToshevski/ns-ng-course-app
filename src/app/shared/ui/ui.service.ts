@@ -10,7 +10,7 @@ export class UIService {
     }
 
     toggleDrawer() {
-        this._drawerSTate.next();
+        this._drawerSTate.next(null);
     }
 
 }
