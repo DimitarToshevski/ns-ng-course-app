@@ -1,0 +1,10 @@
+<TabView
+androidTabsPosition="bottom"
+androidSelectedTabHighlightColor="rgb(204, 83, 111)"
+selectedTabTextColor="rgb(204, 83, 111)"
+>
+  <page-router-outlet *tabItem="{ title: 'Today' }" name="today">
+  </page-router-outlet>
+  <page-router-outlet title="Tab 2" *tabItem="{ title: 'Current Challenge' }" name="currentChallenge">
+  </page-router-outlet>
+</TabView>
