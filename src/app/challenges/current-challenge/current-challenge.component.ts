@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
+import { ModalDialogService } from 'nativescript-angular/modal-dialog';
+
+import { DayModalComponent } from '../day-modal/day-modal.component';
 
 @Component({
     selector: 'ns-current-challenge',
@@ -6,4 +9,14 @@ import { Component } from '@angular/core';
     styleUrls: ['./current-challenge.component.css'],
     moduleId: module.id
 })
-export class CurrentChallengeComponent { }
+export class CurrentChallengeComponent {
+
+    constructor(private _modalDialog: ModalDialogService, private _vcRef: ViewContainerRef) { }
+
+    onChangeStatus() {
+        this._modalDialog.showModal(DayModalComponent, {
+            fullscreen: true,
+            viewContainerRef: this._vcRef
+        });
+    }
+}
