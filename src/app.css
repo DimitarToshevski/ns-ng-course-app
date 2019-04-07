@@ -9,37 +9,6 @@ In many cases you may want to use the NativeScript core theme instead
 of writing your own CSS rules. For a full list of class names in the theme
 refer to http://docs.nativescript.org/ui/theme.
 */
-@import '~nativescript-theme-core/css/core.light.css';
 
-.btn {
-    background: rgb(204, 83, 111);
-    border-width: 1;
-    border-color: rgb(204, 83, 111);
-    color: white;
-    width: 100%;
-    padding: 5 10;
-    border-radius: 30%;
-    margin: 5 0;
-}
 
-TextField {
-    border-bottom-width: 1;
-    border-color: rgb(204, 83, 111);
 
-}
-
-.drawer-container {
-    background: linear-gradient(140deg, #2b0c72, #5c3fa0);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20;
-}
-
-.fs-big {
-    font-size: 30;
-}
-
-.fs-medium {
-    font-size: 20;
-}

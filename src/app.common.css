@@ -1,0 +1,32 @@
+@import '~nativescript-theme-core/css/core.light.css';
+
+TextField {
+    border-bottom-width: 1;
+    border-color: rgb(204, 83, 111);
+
+}
+
+.drawer-container {
+    background: linear-gradient(140deg, #2b0c72, #5c3fa0);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20;
+}
+
+.fs-big {
+    font-size: 30;
+}
+
+.fs-medium {
+    font-size: 20;
+}
+
+.btn {
+    border-width: 1;
+    width: 100%;
+    padding: 5 10;
+    border-radius: 30%;
+    margin: 5 0;
+    border-color: rgb(204, 83, 111);
+}

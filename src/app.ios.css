@@ -1,0 +1,6 @@
+@import './app.android.css';
+
+.btn {
+    background: transparent;
+    color: rgb(204, 83, 111);
+}
