@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
+import { ChallengeAction } from '../shared/enums/challenge-actions.enum';
 
 @Component({
   selector: 'ns-day-modal',
@@ -15,7 +16,7 @@ export class DayModalComponent implements OnInit {
   ngOnInit() {
       this.loadedDate = (this._modalParams.context as { date: Date }).date
   }
-  onHandleInput(action: string) {
+  onHandleInput(action: ChallengeAction) {
       this._modalParams.closeCallback(action);
   }
 

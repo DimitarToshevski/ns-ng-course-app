@@ -68,8 +68,17 @@ TextField {
     font-size: 30;
 }
 
+.fs-medium-2 {
+    font-size: 24;
+}
+
 .fs-medium {
     font-size: 20;
+}
+
+.fa {
+    // Adding the font name for IOS and the file name for Android to find
+    font-family: 'FontAwesome', 'Font-Awesome';
 }
 
 .btn {
