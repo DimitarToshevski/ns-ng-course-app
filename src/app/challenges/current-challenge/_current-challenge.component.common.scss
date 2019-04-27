@@ -1,0 +1,44 @@
+@import '../../../theme/colors';
+
+.page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20;
+}
+
+.week-day-label {
+    color: $secondary;
+    font-weight: bold;
+    margin: 15 0;
+}
+
+.day {
+    justify-content: center;
+    align-items: center;
+    margin: 10;
+    width: 50;
+    height: 50;
+    border-color: $primary;
+    border-width: 1;
+    border-radius: 50%;
+    color: $primary
+}
+
+.completed {
+    border-color: $success;
+    background: $success;
+    color: white;
+}
+
+.failed {
+    border-color: $fail;
+    background: $fail;
+    color: white;
+}
+
+.not-settable {
+    border-color: $disabled;
+    background: $disabled;
+    color: #535353;
+}
