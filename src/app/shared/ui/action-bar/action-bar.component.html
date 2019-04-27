@@ -5,10 +5,9 @@
     [text]="'Back'"
     (tap)="onGoBack()"
     ></NavigationButton>
-    // update the icon with a white one
     <NavigationButton
     *ngIf="android && hasMenu"
-    icon="res://menu_black"
+    icon="res://menu_white"
     (tap)="onToggleMenu()"
     ></NavigationButton>
 
