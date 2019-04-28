@@ -1,6 +1,14 @@
-GridLayout {
-    background-image: url("res://nature");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+.page {
+  background-image: url("res://nature");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-challenge {
+  justify-content: center;
+  margin: 20;
 }
