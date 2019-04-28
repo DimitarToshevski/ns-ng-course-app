@@ -1,12 +1,56 @@
-<ns-action-bar [title]="isCreating ? 'Replace Challenge' : 'Edit Challenge'" [hasMenu]="false"></ns-action-bar>
+<ns-action-bar
+  [title]="isCreating ? 'Replace Challenge' : 'Edit Challenge'"
+  [hasMenu]="false"
+></ns-action-bar>
 <FlexboxLayout class="form">
-    <StackLayout class="input-field">
-        <Label text="Title" class="label"></Label>
-        <TextField class="input"></TextField>
-    </StackLayout>
-    <StackLayout class="input-field">
-        <Label text="Description" class="label"></Label>
-        <TextField class="input"></TextField>
-    </StackLayout>
-    <Button text="Save" class="btn-primary"></Button>
+  <StackLayout class="input-field">
+    <Label
+      text="Title"
+      class="label"
+      [ngClass]="{ invalid: !titleCtrl.valid && titleCtrl.touched }"
+    >
+    </Label>
+    <TextField
+      class="input"
+      #titleCtrl="ngModel"
+      returnKeyType="next"
+      required
+      ngModel
+    >
+    </TextField>
+    <Label
+      *ngIf="!titleCtrl.value && titleCtrl.touched"
+      class="invalid"
+      text="Please enter a valid title."
+    >
+    </Label>
+  </StackLayout>
+  <StackLayout class="input-field">
+    <Label
+      class="label"
+      text="Description"
+      [ngClass]="{ invalid: !descriptionCtrl.valid && descriptionCtrl.touched }"
+    >
+    </Label>
+    <TextView
+      class="input"
+      returnKeyType="done"
+      required
+      ngModel
+      #descriptionCtrl="ngModel"
+    >
+    </TextView>
+    <Label
+      *ngIf="!descriptionCtrl.value && descriptionCtrl.touched"
+      class="invalid"
+      text="Please enter a valid description."
+    >
+    </Label>
+  </StackLayout>
+  <Button
+    class="btn-primary"
+    text="Save"
+    [isEnabled]="titleCtrl.valid && descriptionCtrl.valid"
+  >
+  </Button>
 </FlexboxLayout>

@@ -14,6 +14,7 @@ $btn-color: $primary;
     font-weight: bold;
     font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
 }
+
 .form {
     justify-content: flex-start;
     flex-direction: column;
@@ -29,10 +30,21 @@ $btn-color: $primary;
             color: $primary;
             font-weight: bold;
             font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
+            &.invalid {
+                color: $error;
+            }
         }
     }
 }
 
+.invalid {
+    color: $error;
+}
+
+.ng-invalid.ng-touched {
+    border-bottom-color: $error;
+    color: $error;
+}
 
 .action-bar {
     background: $primary;
@@ -58,6 +70,7 @@ TextField {
     border-width: 1;
     color: $primary;
 }
+
 .drawer-container {
     background: linear-gradient(140deg, #2b0c72, #5c3fa0);
     flex-direction: column;
@@ -69,6 +82,7 @@ TextField {
         height: 45;
     }
 }
+
 Button,Label {
     &.fs-big {
         font-size: 30;
@@ -86,6 +100,7 @@ Button,Label {
         font-size: 20;
     }
 }
+
 Button,Label {
     &.fs-small {
         font-size: 14;

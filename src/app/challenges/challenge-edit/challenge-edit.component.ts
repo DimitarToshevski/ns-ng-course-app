@@ -11,6 +11,7 @@ import { PageRoute } from 'nativescript-angular/router';
 })
 export class ChallengeEditComponent implements OnInit {
     isCreating = true;
+    title: string;
 
     constructor(private _route: ActivatedRoute, private _pageRoute: PageRoute) { }
 
