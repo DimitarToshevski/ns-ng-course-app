@@ -64,22 +64,36 @@ TextField {
     justify-content: center;
     align-items: center;
     padding: 20;
+    .btn {
+        width: 80%;
+        height: 45;
+    }
+}
+Button,Label {
+    &.fs-big {
+        font-size: 30;
+    }
 }
 
-.fs-big {
-    font-size: 30;
+Button,Label {
+    &.fs-medium-2 {
+        font-size: 24;
+    }
 }
 
-.fs-medium-2 {
-    font-size: 24;
+Button,Label {
+    &.fs-medium {
+        font-size: 20;
+    }
+}
+Button,Label {
+    &.fs-small {
+        font-size: 14;
+    }
 }
 
-.fs-medium {
-    font-size: 20;
-}
-
-.fs-small {
-    font-size: 14;
+.mb-15 {
+    margin-bottom: 15;
 }
 
 .fa {

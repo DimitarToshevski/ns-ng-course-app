@@ -1,6 +1,11 @@
 <TabView androidTabsPosition="bottom">
-  <page-router-outlet *tabItem="{ title: 'Today' }" name="today">
+  <page-router-outlet 
+    *tabItem="{ title: 'Today', iconSource: 'res://check' }" 
+    name="today">
   </page-router-outlet>
-  <page-router-outlet title="Tab 2" *tabItem="{ title: 'Current Challenge' }" name="currentChallenge">
+  <page-router-outlet 
+    *tabItem="{ title: 'Current Challenge', iconSource: 'res://trophy' }" 
+    title="Tab 2" 
+    name="currentChallenge">
   </page-router-outlet>
 </TabView>
