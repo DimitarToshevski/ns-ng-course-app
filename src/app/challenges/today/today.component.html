@@ -1,10 +1,10 @@
-<ns-action-bar 
-    title="Today's Challenge" 
-    [showBackButton]="false">
+<ns-action-bar title="Today's Challenge" [showBackButton]="false">
 </ns-action-bar>
-<GridLayout>
-    <ns-challenge-actions 
-        [cancelText]="'Reset'" 
-        (actionSelect)="onActionSelected($event)">
-    </ns-challenge-actions>
+<ns-no-challenge *ngIf="!currentChallenge"></ns-no-challenge>
+<GridLayout *ngIf="currentDay">
+  <Label [text]="currentDay.date | date" textWrap="true"></Label>
+  <ns-challenge-actions
+    [cancelText]="'Reset'"
+    (actionSelect)="onActionSelected($event)"
+  ></ns-challenge-actions>
 </GridLayout>

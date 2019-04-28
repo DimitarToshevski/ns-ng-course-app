@@ -50,11 +50,11 @@ export class AuthComponent implements OnInit {
 
     login() {
         this.onDone();
-        if (!this.loginForm.valid) {
-            return;
-        }
+        // if (!this.loginForm.valid) {
+        //     return;
+        // }
         console.log(this.emailCtrl.value, this.passwordCtrl.value);
-        this._router.navigateByUrl("/challenges");
+        this._router.navigate(["/challenges"]);
         this.loginForm.reset();
         this.emailControlIsValid = true;
         this.passwordControlIsValid = true;

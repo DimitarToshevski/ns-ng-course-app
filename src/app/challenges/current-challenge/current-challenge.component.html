@@ -1,54 +1,68 @@
 <ns-action-bar title="Current Challenge" [showBackButton]="false">
-    <ActionItem
+  <ActionItem
     ios.position="right"
     android.position="actionBar"
     nsRouterLink="/challenges/replace"
     pageTransition="slideLeft"
-    >
-      <Label ios:class="fa p-5" android:class="fa p-15 fs-medium-2" text="&#xf0fe;"></Label>
-    </ActionItem>
-    <ActionItem
+  >
+    <Label
+      ios:class="fa p-5"
+      android:class="fa p-15 fs-medium-2"
+      text="&#xf0fe;"
+    ></Label>
+  </ActionItem>
+  <ActionItem
     ios.position="right"
     android.position="actionBar"
     nsRouterLink="/challenges/edit"
     pageTransition="slideLeft"
-    >
-      <Label ios:class="fa p-5" android:class="fa p-15 fs-medium-2" text="&#xf044;"></Label>
-    </ActionItem>
+  >
+    <Label
+      ios:class="fa p-5"
+      android:class="fa p-15 fs-medium-2"
+      text="&#xf044;"
+    ></Label>
+  </ActionItem>
 </ns-action-bar>
 <ScrollView>
-    <FlexboxLayout class="page">
-        <StackLayout>
-          <Label
-            class="h1 text-center"
-            text="Take a walk everyday"
-          ></Label>
-          <Label
-            class="body text-center"
-            text="Walk for at least 20 minutes on every day of the week">
-          </Label>
-        </StackLayout>
-          <GridLayout rows="auto, *, *, *, *, *, *" columns="*, *, *, *, *, *, *">
-              <Label 
-                *ngFor="let weekDay of weekDays; let i = index;" 
-                class="text-center week-day-label"
-                width="100%"
-                row="0" 
-                [col]="i"
-                [text]="weekDay">
-              </Label>
-            <FlexboxLayout 
-              *ngFor="let day of days; let i = index;" 
-              class="day not-settable"
-              [row]="getRow(i, day)"
-              [col]="day.dayInWeek"
-              (tap)="onChangeStatus()">
-              <Label 
-                class="text-center"
-                [text]="day.dayInMonth">
-              </Label>
-            </FlexboxLayout>
-          </GridLayout>
+  <FlexboxLayout class="page">
+    <ns-no-challenge *ngIf="!currentChallenge"></ns-no-challenge>
+    <StackLayout *ngIf="currentChallenge">
+      <Label
+        class="h1 text-center"
+        textWrap="true"
+        [text]="currentChallenge.title"
+      ></Label>
+      <Label
+        class="body text-center fs-medium"
+        textWrap="true"
+        [text]="currentChallenge.description"
+      >
+      </Label>
+    </StackLayout>
+    <GridLayout
+      *ngIf="currentChallenge"
+      rows="auto, *, *, *, *, *, *"
+      columns="*, *, *, *, *, *, *"
+    >
+      <Label
+        *ngFor="let weekDay of weekDays; let i = index"
+        class="text-center week-day-label"
+        width="100%"
+        row="0"
+        [col]="i"
+        [text]="weekDay"
+      >
+      </Label>
+      <FlexboxLayout
+        *ngFor="let day of currentChallenge.days; let i = index"
+        class="day not-settable"
+        [row]="getRow(i, day)"
+        [col]="day.dayInWeek"
+        (tap)="onChangeStatus()"
+      >
+        <Label class="text-center" [text]="day.dayInMonth"> </Label>
       </FlexboxLayout>
+    </GridLayout>
+  </FlexboxLayout>
 </ScrollView>
-
