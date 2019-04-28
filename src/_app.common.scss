@@ -1,133 +1,141 @@
-@import '~nativescript-theme-core/scss/light';
+@import "~nativescript-theme-core/scss/light";
 // Default theme styles can be overriden here inbetween these imports
-@import './theme/colors';
-
+@import "./theme/colors";
 
 $btn-color: $primary;
 
-@import '~nativescript-theme-core/scss/index';
-
+@import "~nativescript-theme-core/scss/index";
 
 // Global styles
 .h1 {
-    color: $primary;
-    font-weight: bold;
-    font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
+  color: $primary;
+  font-weight: bold;
+  font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
 }
 
 .form {
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-    .input-field {
-        width: 80%;
-        .input {
-            border-bottom-width: 2;
-            border-color: $primary;
-            width: 100%;
-        }
-        .label {
-            color: $primary;
-            font-weight: bold;
-            font-family: 'Oswald', 'Oswald-Regular', 'Oswald-Bold';
-            &.invalid {
-                color: $error;
-            }
-        }
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  .input-field {
+    width: 80%;
+    .input {
+      border-bottom-width: 2;
+      border-bottom-color: $primary;
+      width: 100%;
+      color: black;
+      &.ng-invalid.ng-touched {
+        border-bottom-color: $error;
+        color: $error;
+      }
     }
+    .label {
+      color: $primary;
+      font-weight: bold;
+      font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
+      &.invalid {
+        color: $error;
+      }
+    }
+  }
 }
 
 .invalid {
-    color: $error;
+  color: $error;
 }
 
-.ng-invalid.ng-touched {
-    border-bottom-color: $error;
-    color: $error;
+.disabled {
+  border-color: $disabled;
+  background-color: $disabled;
+  color: white;
 }
 
 .action-bar {
-    background: $primary;
-    color: white;
+  background: $primary;
+  color: white;
 }
 
 TextField {
-    border-bottom-width: 1;
-    border-color: rgb(204, 83, 111);
+  border-bottom-width: 1;
+  border-color: rgb(204, 83, 111);
 }
 
 .form-control {
-    border-bottom-color: rgb(204, 83, 111);
-    border-bottom-width: 2;
-    margin: 5 0;
-    font-size: 20;
-    padding: 8 4;
+  border-bottom-color: rgb(204, 83, 111);
+  border-bottom-width: 2;
+  margin: 5 0;
+  font-size: 20;
+  padding: 8 4;
 }
 
 .btn-flat {
-    background: transparent;
-    border-color: transparent;
-    border-width: 1;
-    color: $primary;
+  background: transparent;
+  border-color: transparent;
+  border-width: 1;
+  color: $primary;
 }
 
 .drawer-container {
-    background: linear-gradient(140deg, #2b0c72, #5c3fa0);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20;
-    .btn {
-        width: 80%;
-        height: 45;
-    }
+  background: linear-gradient(140deg, #2b0c72, #5c3fa0);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20;
+  .btn {
+    width: 80%;
+    height: 45;
+  }
 }
 
-Button,Label {
-    &.fs-big {
-        font-size: 30;
-    }
+button,
+label {
+  &.fs-big {
+    font-size: 30;
+  }
 }
 
-Button,Label {
-    &.fs-medium-2 {
-        font-size: 24;
-    }
+button,
+label {
+  &.fs-medium-2 {
+    font-size: 24;
+  }
 }
 
-Button,Label {
-    &.fs-medium {
-        font-size: 20;
-    }
+button,
+label {
+  &.fs-medium {
+    font-size: 20;
+  }
 }
 
-Button,Label {
-    &.fs-small {
-        font-size: 14;
-    }
+button,
+label {
+  &.fs-small {
+    font-size: 16;
+  }
 }
 
 .mb-15 {
-    margin-bottom: 15;
+  margin-bottom: 15;
 }
 
 .fa {
-    // Adding the font name for IOS and the file name for Android to find
-    font-family: 'FontAwesome', 'Font-Awesome';
+  // Adding the font name for IOS and the file name for Android to find
+  font-family: "FontAwesome", "Font-Awesome";
 }
 
 .oswald-font-bold {
-    font-family: 'Oswald', 'Oswald-Bold';
+  font-family: "Oswald", "Oswald-Bold";
 }
 .oswald-font {
-    font-family: 'Oswald', 'Oswald-Regular';
+  font-family: "Oswald", "Oswald-Regular";
 }
 
 .btn {
-    border-width: 1;
-    width: 100%;
-    padding: 5 10;
-    border-radius: 30%;
-    margin: 5 0;
-    border-color: rgb(204, 83, 111);
+  border-width: 1;
+  width: 100%;
+  padding: 5 10;
+  border-radius: 30%;
+  margin: 5 0;
+  border-color: rgb(204, 83, 111);
 }
