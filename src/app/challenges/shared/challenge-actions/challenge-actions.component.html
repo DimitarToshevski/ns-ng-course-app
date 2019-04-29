@@ -1,5 +1,32 @@
 <FlexboxLayout>
-    <Button class="btn btn-success fs-medium-2 mb-15" text="Completed" (tap)="onAction(challengeAction.COMPLETE)"></Button>
-    <Button class="btn btn-fail fs-medium-2 mb-15"text="Failed" (tap)="onAction(challengeAction.FAIL)"></Button>
-    <Button class="btn-flat fs-medium-2" [text]="cancelText" (tap)="onAction(challengeAction.RESET)"></Button>
+  <Button
+    *ngIf="selectedAction !== challengeAction.COMPLETE"
+    class="btn btn-success fs-medium-2 mb-15"
+    text="Completed"
+    height="60"
+    (tap)="onAction(challengeAction.COMPLETE)"
+  ></Button>
+  <StackLayout
+    *ngIf="selectedAction === challengeAction.COMPLETE"
+    class="btn btn-success"
+    height="60"
+    horizontalAlignment="center"
+  >
+    <Label
+      class="fa m-t-4 fs-big mb-15"
+      text="&#xf00c;"
+      horizontalAlignment="center"
+      textWrap="true"
+    ></Label>
+  </StackLayout>
+  <Button
+    class="btn btn-fail fs-medium-2 mb-15"
+    text="Failed"
+    (tap)="onAction(challengeAction.FAIL)"
+  ></Button>
+  <Button
+    class="btn-flat fs-medium-2"
+    [text]="cancelText"
+    (tap)="onAction(challengeAction.RESET)"
+  ></Button>
 </FlexboxLayout>
