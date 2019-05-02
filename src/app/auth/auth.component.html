@@ -63,9 +63,8 @@
 
   <Button
     class="btn btn-primary fs-medium-2"
-    [text]="isLogin ? 'Login' : 'Sign Up'"
     width="80%"
-    [ngClass]="{ disabled: !loginForm.valid }"
+    [text]="isLogin ? 'Login' : 'Sign Up'"
     [isEnabled]="true"
     [clearHistory]="true"
     (tap)="login()"

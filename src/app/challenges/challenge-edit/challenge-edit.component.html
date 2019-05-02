@@ -50,7 +50,6 @@
   <Button
     class="btn-primary"
     text="Save"
-    [ngClass]="{ disabled: !titleCtrl.valid || !descriptionCtrl.valid }"
     [isEnabled]="titleCtrl.valid && descriptionCtrl.valid"
     (tap)="onSubmit(titleCtrl.value, descriptionCtrl.value)"
   >

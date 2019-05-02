@@ -7,6 +7,7 @@
   <Label class="h1" textWrap="true" [text]="currentDay.date | date"></Label>
   <ns-challenge-actions
     [cancelText]="'Reset'"
+    [chosenAction]="getActionName()"
     (actionSelect)="onActionSelected($event)"
   ></ns-challenge-actions>
 </FlexboxLayout>

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ChallengeAction } from "../shared/enums/challenge-actions.enum";
 import { ChallengeService } from "../shared/services/challenge.service";
-import { IDay, DayStatus } from "../shared/models/day.model";
+import { IDay } from "../shared/models/day.model";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -32,10 +32,16 @@ export class TodayComponent implements OnInit, OnDestroy {
         }
     }
 
-    onActionSelected(status: DayStatus) {
+    onActionSelected(action: ChallengeAction) {
         this._challengeService.updateDayStatus(
             this.currentDay.dayInMonth,
-            status
+            this._challengeService.getStatusByActionName(action)
+        );
+    }
+
+    getActionName() {
+        return this._challengeService.getActionNameByStatus(
+            this.currentDay.status
         );
     }
 }

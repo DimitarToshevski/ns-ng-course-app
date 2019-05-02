@@ -1,6 +1,13 @@
-import { Component, Output, EventEmitter, Input } from "@angular/core";
+import {
+    Component,
+    Output,
+    EventEmitter,
+    Input,
+    OnChanges,
+    SimpleChanges
+} from "@angular/core";
 import { ChallengeAction } from "../enums/challenge-actions.enum";
-import { DayStatus } from "../models/day.model";
+import { ChallengeService } from "../services/challenge.service";
 
 @Component({
     selector: "ns-challenge-actions",
@@ -8,28 +15,24 @@ import { DayStatus } from "../models/day.model";
     styleUrls: ["./challenge-actions.component.scss"],
     moduleId: module.id
 })
-export class ChallengeActionsComponent {
+export class ChallengeActionsComponent implements OnChanges {
     @Input() cancelText = "Cancel";
+    @Input() chosenAction: ChallengeAction;
     @Output() actionSelect = new EventEmitter<ChallengeAction>();
 
     challengeAction = ChallengeAction;
     selectedAction: ChallengeAction = null;
 
+    constructor(private _challengeService: ChallengeService) {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.chosenAction) {
+            this.selectedAction = changes.chosenAction.currentValue;
+        }
+    }
+
     onAction(action: ChallengeAction) {
         this.selectedAction = action;
-
-        let status;
-        switch (action) {
-            case ChallengeAction.COMPLETE:
-                status = DayStatus.COMPLETED;
-                break;
-            case ChallengeAction.FAIL:
-                status = DayStatus.FAILED;
-                break;
-            default:
-                status = DayStatus.OPEN;
-                break;
-        }
-        this.actionSelect.emit(status);
+        this.actionSelect.emit(action);
     }
 }

@@ -68,10 +68,11 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
                     : this._vcRef,
                 context: { date: day.date }
             })
-            .then((status: DayStatus) => {
-                console.log(status === this.dayStatus.COMPLETED);
-
-                this._challengeService.updateDayStatus(day.dayInMonth, status);
+            .then((action: ChallengeAction) => {
+                this._challengeService.updateDayStatus(
+                    day.dayInMonth,
+                    this._challengeService.getStatusByActionName(action)
+                );
             });
     }
 

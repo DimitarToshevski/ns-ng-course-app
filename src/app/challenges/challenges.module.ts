@@ -5,8 +5,8 @@ import { ChallengeTabsComponent } from "./challenge-tabs/challenge-tabs.componen
 import { CurrentChallengeComponent } from "./current-challenge/current-challenge.component";
 import { TodayComponent } from "./today/today.component";
 import { SharedModule } from "../shared/shared.module";
-import { ChallengeActionsModule } from "./shared/challenge-actions/cha;;genge-actions.module";
-import { NoChallengeComponent } from './shared/no-challenge/no-challenge.component';
+import { ChallengeActionsModule } from "./shared/challenge-actions/challenge-actions.module";
+import { NoChallengeComponent } from "./shared/no-challenge/no-challenge.component";
 
 @NgModule({
     declarations: [

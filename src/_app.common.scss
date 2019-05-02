@@ -44,10 +44,11 @@ $btn-color: $primary;
   color: $error;
 }
 
-.disabled {
+:disabled {
   border-color: $disabled;
+  border-width: 1;
   background-color: $disabled;
-  color: white;
+  color: $disabledText;
 }
 
 .action-bar {

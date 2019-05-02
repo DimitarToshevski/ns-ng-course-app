@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { Challenge } from "../models/challenge.model";
 import { DayStatus } from "../models/day.model";
 import { take } from "rxjs/operators";
+import { ChallengeAction } from "../enums/challenge-actions.enum";
 
 @Injectable({ providedIn: "root" })
 export class ChallengeService {
@@ -35,5 +36,27 @@ export class ChallengeService {
             this._currentChallenge.next(challenge);
             console.log(challenge.days[dayIndex]);
         });
+    }
+
+    getActionNameByStatus(status: DayStatus) {
+        switch (status) {
+            case DayStatus.COMPLETED:
+                return ChallengeAction.COMPLETE;
+            case DayStatus.FAILED:
+                return ChallengeAction.FAIL;
+            case DayStatus.OPEN:
+                return ChallengeAction.RESET;
+        }
+    }
+
+    getStatusByActionName(action: ChallengeAction) {
+        switch (action) {
+            case ChallengeAction.COMPLETE:
+                return DayStatus.COMPLETED;
+            case ChallengeAction.FAIL:
+                return DayStatus.FAILED;
+            case ChallengeAction.RESET:
+                return DayStatus.OPEN;
+        }
     }
 }

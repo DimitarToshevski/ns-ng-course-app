@@ -4,6 +4,7 @@
     class="btn btn-success fs-medium-2 mb-15"
     text="Completed"
     height="60"
+    [isEnabled]="selectedAction !== challengeAction.FAIL"
     (tap)="onAction(challengeAction.COMPLETE)"
   ></Button>
   <StackLayout
@@ -24,6 +25,7 @@
     class="btn btn-fail fs-medium-2 mb-15"
     text="Failed"
     height="60"
+    [isEnabled]="selectedAction !== challengeAction.COMPLETE"
     (tap)="onAction(challengeAction.FAIL)"
   ></Button>
   <StackLayout
