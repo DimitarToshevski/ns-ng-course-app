@@ -15,7 +15,7 @@
       #titleCtrl="ngModel"
       returnKeyType="next"
       required
-      ngModel
+      [(ngModel)]="title"
     >
     </TextField>
     <Label
@@ -36,7 +36,7 @@
       class="input"
       returnKeyType="done"
       required
-      ngModel
+      [(ngModel)]="description"
       #descriptionCtrl="ngModel"
     >
     </TextView>

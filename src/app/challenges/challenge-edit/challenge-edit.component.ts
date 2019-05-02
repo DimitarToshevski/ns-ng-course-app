@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { switchMap, take } from "rxjs/operators";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 import { ChallengeService } from "../shared/services/challenge.service";
 
@@ -13,6 +13,7 @@ import { ChallengeService } from "../shared/services/challenge.service";
 export class ChallengeEditComponent implements OnInit {
     isCreating = true;
     title: string;
+    description: string;
 
     constructor(
         private _route: ActivatedRoute,
@@ -42,11 +43,24 @@ export class ChallengeEditComponent implements OnInit {
                 } else {
                     this.isCreating = params.get("mode") !== "edit";
                 }
+
+                if (!this.isCreating) {
+                    this._challengeService.currentChallenge
+                        .pipe(take(1))
+                        .subscribe(challenge => {
+                            this.title = challenge.title;
+                            this.description = challenge.description;
+                        });
+                }
             });
     }
 
     onSubmit(title: string, description: string) {
-        this._challengeService.createNewChallenge(title, description);
+        if (this.isCreating) {
+            this._challengeService.createNewChallenge(title, description);
+        } else {
+            this._challengeService.updateChallenge(title, description);
+        }
         this._router.backToPreviousPage();
     }
 }

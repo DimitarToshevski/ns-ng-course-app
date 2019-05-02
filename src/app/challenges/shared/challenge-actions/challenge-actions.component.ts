@@ -7,7 +7,6 @@ import {
     SimpleChanges
 } from "@angular/core";
 import { ChallengeAction } from "../enums/challenge-actions.enum";
-import { ChallengeService } from "../services/challenge.service";
 
 @Component({
     selector: "ns-challenge-actions",
@@ -25,7 +24,7 @@ export class ChallengeActionsComponent implements OnChanges {
     challengeAction = ChallengeAction;
     selectedAction: ChallengeAction = null;
 
-    constructor(private _challengeService: ChallengeService) {}
+    constructor() {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.chosenAction) {
