@@ -18,6 +18,8 @@ import { ChallengeService } from "../services/challenge.service";
 export class ChallengeActionsComponent implements OnChanges {
     @Input() cancelText = "Cancel";
     @Input() chosenAction: ChallengeAction;
+    @Input() enableButtons? = false;
+
     @Output() actionSelect = new EventEmitter<ChallengeAction>();
 
     challengeAction = ChallengeAction;

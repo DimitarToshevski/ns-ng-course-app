@@ -1,6 +1,8 @@
 <FlexboxLayout>
   <Label class="h1" textWrap="true" [text]="loadedDate | date"></Label>
   <ns-challenge-actions
+    [chosenAction]="chosenAction"
+    [enableButtons]="true"
     (actionSelect)="onHandleInput($event)"
   ></ns-challenge-actions>
 </FlexboxLayout>

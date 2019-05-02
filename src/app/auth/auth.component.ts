@@ -53,7 +53,6 @@ export class AuthComponent implements OnInit {
         // if (!this.loginForm.valid) {
         //     return;
         // }
-        console.log(this.emailCtrl.value, this.passwordCtrl.value);
         this._router.navigate(["/challenges"]);
         this.loginForm.reset();
         this.emailControlIsValid = true;

@@ -66,9 +66,12 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
                 viewContainerRef: this._uiService.getRootVCRef()
                     ? this._uiService.getRootVCRef()
                     : this._vcRef,
-                context: { date: day.date }
+                context: { date: day.date, status: day.status }
             })
             .then((action: ChallengeAction) => {
+                if (action === ChallengeAction.RESET) {
+                    return;
+                }
                 this._challengeService.updateDayStatus(
                     day.dayInMonth,
                     this._challengeService.getStatusByActionName(action)
