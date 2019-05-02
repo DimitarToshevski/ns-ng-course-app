@@ -2,15 +2,39 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Challenge } from "../models/challenge.model";
 import { DayStatus } from "../models/day.model";
-import { take } from "rxjs/operators";
+import { take, tap } from "rxjs/operators";
 import { ChallengeAction } from "../enums/challenge-actions.enum";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
 export class ChallengeService {
+    constructor(private _http: HttpClient) {}
+
     private _currentChallenge = new BehaviorSubject<Challenge>(null);
 
     get currentChallenge() {
         return this._currentChallenge.asObservable();
+    }
+
+    fetchCurrentChallenge() {
+        return this._http
+            .get<Challenge>(
+                "https://nativescript-challenge-app.firebaseio.com/challenge.json"
+            )
+            .pipe(
+                tap(challenge => {
+                    if (challenge) {
+                        const loadedChallenge = new Challenge(
+                            challenge.title,
+                            challenge.description,
+                            challenge.year,
+                            challenge.month,
+                            challenge.days
+                        );
+                        this._currentChallenge.next(loadedChallenge);
+                    }
+                })
+            );
     }
 
     createNewChallenge(title: string, description: string) {
@@ -20,6 +44,15 @@ export class ChallengeService {
             new Date().getFullYear(),
             new Date().getMonth()
         );
+
+        this._http
+            .put(
+                "https://nativescript-challenge-app.firebaseio.com/challenge.json",
+                newChallenge
+            )
+            .subscribe(res => {
+                console.log(res);
+            });
 
         this._currentChallenge.next(newChallenge);
     }

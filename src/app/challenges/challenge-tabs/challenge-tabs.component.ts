@@ -1,32 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterExtensions } from 'nativescript-angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Component, OnInit } from "@angular/core";
+import { RouterExtensions } from "nativescript-angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { Page } from "tns-core-modules/ui/page/page";
+import { ChallengeService } from "../shared/services/challenge.service";
 
 @Component({
-  selector: 'ns-challenge-tabs',
-  templateUrl: './challenge-tabs.component.html',
-  styleUrls: ['./challenge-tabs.component.css'],
-  moduleId: module.id,
+    selector: "ns-challenge-tabs",
+    templateUrl: "./challenge-tabs.component.html",
+    styleUrls: ["./challenge-tabs.component.css"],
+    moduleId: module.id
 })
 export class ChallengeTabsComponent implements OnInit {
+    isLoading = false;
+    constructor(
+        private router: RouterExtensions,
+        private route: ActivatedRoute,
+        private page: Page,
+        private _challengeService: ChallengeService
+    ) {}
 
-  constructor(private router: RouterExtensions, private route: ActivatedRoute, private page: Page) { }
-
-  ngOnInit() {
-    this.router.navigate(
-        [
-            { outlets:
-                { currentChallenge: ['current-challenge'], today: ['today']}
+    ngOnInit() {
+        this.isLoading = true;
+        this._challengeService.fetchCurrentChallenge().subscribe(
+            challenge => {
+                console.log(challenge);
+                this.isLoading = false;
+                this._loadTabRoutes();
+            },
+            err => {
+                console.log(err);
+                this.isLoading = false;
+                this._loadTabRoutes();
             }
-        ],
-        {
-            relativeTo: this.route
-        }
-    );
+        );
 
-    this.page.actionBarHidden = true;
+        this.page.actionBarHidden = true;
+    }
 
-  }
-
+    private _loadTabRoutes() {
+        setTimeout(() => {
+            this.router.navigate(
+                [
+                    {
+                        outlets: {
+                            currentChallenge: ["current-challenge"],
+                            today: ["today"]
+                        }
+                    }
+                ],
+                {
+                    relativeTo: this.route
+                }
+            );
+        }, 0);
+    }
 }
