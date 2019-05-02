@@ -9,7 +9,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { DayModalComponent } from "./challenges/day-modal/day-modal.component";
 import { SharedModule } from "./shared/shared.module";
-import { ChallengeActionsModule } from "./challenges/shared/challenge-actions/challenge-actions.module";
+import { ChallengeActionsModule } from "./challenges/shared/components/challenge-actions/challenge-actions.module";
 import { ReactiveFormsModule } from "@angular/forms";
 
 // Uncomment and add to NgModule imports if you need to use the HttpClient wrapper

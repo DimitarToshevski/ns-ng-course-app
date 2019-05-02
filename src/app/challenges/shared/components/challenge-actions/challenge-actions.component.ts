@@ -6,7 +6,7 @@ import {
     OnChanges,
     SimpleChanges
 } from "@angular/core";
-import { ChallengeAction } from "../enums/challenge-actions.enum";
+import { ChallengeAction } from "../../enums/challenge-actions.enum";
 
 @Component({
     selector: "ns-challenge-actions",

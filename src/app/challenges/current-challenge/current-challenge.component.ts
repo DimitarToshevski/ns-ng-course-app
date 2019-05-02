@@ -2,8 +2,8 @@ import { Component, ViewContainerRef, OnInit, OnDestroy } from "@angular/core";
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
 
 import { DayModalComponent } from "../day-modal/day-modal.component";
-import { UIService } from "~/app/shared/ui/ui.service";
-import { ChallengeService } from "../shared/services/challenge.service";
+import { UIService } from "~/app/shared/services/ui.service";
+import { ChallengeService } from "../../shared/services/challenge.service";
 import { Challenge } from "../shared/models/challenge.model";
 import { Subscription } from "rxjs";
 import { IDay, DayStatus } from "../shared/models/day.model";

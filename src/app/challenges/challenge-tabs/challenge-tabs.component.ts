@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page/page";
-import { ChallengeService } from "../shared/services/challenge.service";
+import { ChallengeService } from "../../shared/services/challenge.service";
 
 @Component({
     selector: "ns-challenge-tabs",
@@ -23,12 +23,10 @@ export class ChallengeTabsComponent implements OnInit {
         this.isLoading = true;
         this._challengeService.fetchCurrentChallenge().subscribe(
             challenge => {
-                console.log(challenge);
                 this.isLoading = false;
                 this._loadTabRoutes();
             },
             err => {
-                console.log(err);
                 this.isLoading = false;
                 this._loadTabRoutes();
             }

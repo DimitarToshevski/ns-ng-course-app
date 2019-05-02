@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap, take } from "rxjs/operators";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
-import { ChallengeService } from "../shared/services/challenge.service";
+import { ChallengeService } from "../../shared/services/challenge.service";
 
 @Component({
     selector: "ns-challenge-edit",

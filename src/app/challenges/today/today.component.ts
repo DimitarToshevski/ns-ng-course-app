@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ChallengeAction } from "../shared/enums/challenge-actions.enum";
-import { ChallengeService } from "../shared/services/challenge.service";
+import { ChallengeService } from "../../shared/services/challenge.service";
 import { IDay } from "../shared/models/day.model";
 import { Subscription } from "rxjs";
 
@@ -21,15 +21,14 @@ export class TodayComponent implements OnInit, OnDestroy {
             challenge => {
                 if (challenge) {
                     this.currentDay = challenge.currentDay;
+                    console.log(this.currentDay.status);
                 }
             }
         );
     }
 
     ngOnDestroy() {
-        if (this._currChallengeSub) {
-            this._currChallengeSub.unsubscribe;
-        }
+        this._currChallengeSub.unsubscribe;
     }
 
     onActionSelected(action: ChallengeAction) {

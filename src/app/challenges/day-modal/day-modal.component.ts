@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/modal-dialog";
 import { ChallengeAction } from "../shared/enums/challenge-actions.enum";
 import { DayStatus } from "../shared/models/day.model";
-import { ChallengeService } from "../shared/services/challenge.service";
+import { ChallengeService } from "../../shared/services/challenge.service";
 
 @Component({
     selector: "ns-day-modal",

@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { Challenge } from "../models/challenge.model";
-import { DayStatus } from "../models/day.model";
+import { Challenge } from "../../challenges/shared/models/challenge.model";
+import { DayStatus } from "../../challenges/shared/models/day.model";
 import { take, tap } from "rxjs/operators";
-import { ChallengeAction } from "../enums/challenge-actions.enum";
+import { ChallengeAction } from "../../challenges/shared/enums/challenge-actions.enum";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
@@ -23,6 +23,8 @@ export class ChallengeService {
             )
             .pipe(
                 tap(challenge => {
+                    console.log(challenge);
+
                     if (challenge) {
                         const loadedChallenge = new Challenge(
                             challenge.title,
@@ -45,6 +47,7 @@ export class ChallengeService {
             new Date().getMonth()
         );
         this._saveToServer(newChallenge);
+        this._currentChallenge.next(newChallenge);
     }
 
     updateChallenge(title: string, description: string) {
@@ -57,6 +60,7 @@ export class ChallengeService {
                 challenge.days
             );
             this._saveToServer(updatedChallenge);
+            this._currentChallenge.next(updatedChallenge);
         });
     }
 
@@ -69,7 +73,9 @@ export class ChallengeService {
                 d => d.dayInMonth === dayInMonth
             );
             challenge.days[dayIndex].status = status;
+
             this._saveToServer(challenge);
+            this._currentChallenge.next(challenge);
         });
     }
 
@@ -102,6 +108,5 @@ export class ChallengeService {
                 challenge
             )
             .subscribe();
-        this._currentChallenge.next(challenge);
     }
 }
