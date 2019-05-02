@@ -44,17 +44,7 @@ export class ChallengeService {
             new Date().getFullYear(),
             new Date().getMonth()
         );
-
-        this._http
-            .put(
-                "https://nativescript-challenge-app.firebaseio.com/challenge.json",
-                newChallenge
-            )
-            .subscribe(res => {
-                console.log(res);
-            });
-
-        this._currentChallenge.next(newChallenge);
+        this._saveToServer(newChallenge);
     }
 
     updateChallenge(title: string, description: string) {
@@ -66,7 +56,7 @@ export class ChallengeService {
                 challenge.month,
                 challenge.days
             );
-            this._currentChallenge.next(updatedChallenge);
+            this._saveToServer(updatedChallenge);
         });
     }
 
@@ -79,7 +69,7 @@ export class ChallengeService {
                 d => d.dayInMonth === dayInMonth
             );
             challenge.days[dayIndex].status = status;
-            this._currentChallenge.next(challenge);
+            this._saveToServer(challenge);
         });
     }
 
@@ -103,5 +93,15 @@ export class ChallengeService {
             case ChallengeAction.RESET:
                 return DayStatus.OPEN;
         }
+    }
+
+    private _saveToServer(challenge: Challenge) {
+        this._http
+            .put(
+                "https://nativescript-challenge-app.firebaseio.com/challenge.json",
+                challenge
+            )
+            .subscribe();
+        this._currentChallenge.next(challenge);
     }
 }
