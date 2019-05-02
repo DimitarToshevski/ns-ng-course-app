@@ -6,6 +6,8 @@ import { UIService } from "~/app/shared/ui/ui.service";
 import { ChallengeService } from "../shared/services/challenge.service";
 import { Challenge } from "../shared/models/challenge.model";
 import { Subscription } from "rxjs";
+import { IDay, DayStatus } from "../shared/models/day.model";
+import { ChallengeAction } from "../shared/enums/challenge-actions.enum";
 
 @Component({
     selector: "ns-current-challenge",
@@ -19,6 +21,7 @@ import { Subscription } from "rxjs";
 export class CurrentChallengeComponent implements OnInit, OnDestroy {
     weekDays = ["S", "M", "T", "W", "T", "F", "S"];
     currentChallenge: Challenge;
+    dayStatus = DayStatus;
 
     private curChallengeSub: Subscription;
 
@@ -53,17 +56,26 @@ export class CurrentChallengeComponent implements OnInit, OnDestroy {
         return startRow + weekRow + irregularRow;
     }
 
-    onChangeStatus() {
+    onChangeStatus(day: IDay) {
+        if (!this.getIsDaySettable(day.dayInMonth)) {
+            return;
+        }
         this._modalDialog
             .showModal(DayModalComponent, {
                 fullscreen: true,
                 viewContainerRef: this._uiService.getRootVCRef()
                     ? this._uiService.getRootVCRef()
                     : this._vcRef,
-                context: { date: new Date() }
+                context: { date: day.date }
             })
-            .then((action: string) => {
-                console.log(action);
+            .then((status: DayStatus) => {
+                console.log(status === this.dayStatus.COMPLETED);
+
+                this._challengeService.updateDayStatus(day.dayInMonth, status);
             });
+    }
+
+    getIsDaySettable(dayInMonth: number) {
+        return dayInMonth <= new Date().getDate();
     }
 }

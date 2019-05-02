@@ -8,22 +8,37 @@
   ></Button>
   <StackLayout
     *ngIf="selectedAction === challengeAction.COMPLETE"
-    class="btn btn-success"
+    class="btn btn-success mb-15"
     height="60"
     horizontalAlignment="center"
   >
     <Label
-      class="fa m-t-4 fs-big mb-15"
+      class="fa m-t-10 fs-big animate-button"
       text="&#xf00c;"
       horizontalAlignment="center"
       textWrap="true"
     ></Label>
   </StackLayout>
   <Button
+    *ngIf="selectedAction !== challengeAction.FAIL"
     class="btn btn-fail fs-medium-2 mb-15"
     text="Failed"
+    height="60"
     (tap)="onAction(challengeAction.FAIL)"
   ></Button>
+  <StackLayout
+    *ngIf="selectedAction === challengeAction.FAIL"
+    class="btn btn-fail mb-15"
+    height="60"
+    horizontalAlignment="center"
+  >
+    <Label
+      class="fa m-t-10 fs-big animate-button"
+      text="&#xf00d;"
+      horizontalAlignment="center"
+      textWrap="true"
+    ></Label>
+  </StackLayout>
   <Button
     class="btn-flat fs-medium-2"
     [text]="cancelText"

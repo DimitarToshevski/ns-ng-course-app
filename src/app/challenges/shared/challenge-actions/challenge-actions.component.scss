@@ -1,24 +1,40 @@
-@import '~nativescript-theme-core/scss/light';
-@import '../../../../theme/_colors.scss';
+@import "~nativescript-theme-core/scss/light";
+@import "../../../../theme/_colors.scss";
 
 FlexboxLayout {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn {
-    width: 430px;
+  width: 430px;
 }
 
 .btn-success {
-    background: $success;
-    border-color: $success;
-    color: $white;
+  background: $success;
+  border-color: $success;
+  color: $white;
 }
 
 .btn-fail {
-    background: $fail;
-    border-color: $fail;
-    color: $white;
+  background: $fail;
+  border-color: $fail;
+  color: $white;
+}
+
+.animate-button {
+  animation-name: slide-up;
+  animation-duration: 1;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(30);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from "@angular/core";
 import { ChallengeAction } from "../enums/challenge-actions.enum";
+import { DayStatus } from "../models/day.model";
 
 @Component({
     selector: "ns-challenge-actions",
@@ -16,6 +17,19 @@ export class ChallengeActionsComponent {
 
     onAction(action: ChallengeAction) {
         this.selectedAction = action;
-        this.actionSelect.emit(action);
+
+        let status;
+        switch (action) {
+            case ChallengeAction.COMPLETE:
+                status = DayStatus.COMPLETED;
+                break;
+            case ChallengeAction.FAIL:
+                status = DayStatus.FAILED;
+                break;
+            default:
+                status = DayStatus.OPEN;
+                break;
+        }
+        this.actionSelect.emit(status);
     }
 }

@@ -1,7 +1,7 @@
 export enum DayStatus {
-    OPEN,
-    COMPLETED,
-    FAILED
+    OPEN = "OPEN",
+    COMPLETED = "COMPLETED",
+    FAILED = "FAILED"
 }
 
 export interface IDay {
