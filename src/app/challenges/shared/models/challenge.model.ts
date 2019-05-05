@@ -6,9 +6,9 @@ export class Challenge {
         public description: string,
         public year: number,
         public month: number,
-        private _days: Array<IDay> = []
+        public days: Array<IDay> = []
     ) {
-        if (_days.length > 0) {
+        if (days.length > 0) {
             return;
         }
         // this._currentYear = new Date().getFullYear();
@@ -18,7 +18,7 @@ export class Challenge {
         for (let i = 1; i < daysInMonth + 1; i++) {
             const date = new Date(year, month, i);
             const dayInWeek = date.getDay();
-            this._days.push({
+            this.days.push({
                 dayInMonth: i,
                 dayInWeek: dayInWeek,
                 date: date,
@@ -28,10 +28,10 @@ export class Challenge {
     }
 
     get currentDay() {
-        return this._days.find(d => d.dayInMonth === new Date().getDate());
+        return this.days.find(d => d.dayInMonth === new Date().getDate());
     }
 
-    get days() {
-        return [...this._days];
-    }
+    // get days() {
+    //     return [...this._days];
+    // }
 }

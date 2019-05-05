@@ -23,8 +23,6 @@ export class ChallengeService {
             )
             .pipe(
                 tap(challenge => {
-                    console.log(challenge);
-
                     if (challenge) {
                         const loadedChallenge = new Challenge(
                             challenge.title,
@@ -33,6 +31,7 @@ export class ChallengeService {
                             challenge.month,
                             challenge.days
                         );
+
                         this._currentChallenge.next(loadedChallenge);
                     }
                 })
