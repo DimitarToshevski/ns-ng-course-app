@@ -62,11 +62,13 @@
   ></Button>
 
   <Button
+    *ngIf="!isLoading"
     class="btn btn-primary fs-medium-2"
     width="80%"
     [text]="isLogin ? 'Login' : 'Sign Up'"
-    [isEnabled]="true"
+    [isEnabled]="loginForm.valid"
     [clearHistory]="true"
     (tap)="login()"
   ></Button>
+  <ActivityIndicator [busy]="isLoading"></ActivityIndicator>
 </StackLayout>

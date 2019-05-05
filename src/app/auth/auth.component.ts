@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { TextField } from "tns-core-modules/ui/text-field";
 import { RouterExtensions } from "nativescript-angular/router";
+import { AuthService } from "../shared/services/auth.service";
+import { pipe } from "rxjs";
+import { finalize } from "rxjs/operators";
 
 @Component({
     selector: "ns-auth",
@@ -17,6 +20,7 @@ export class AuthComponent implements OnInit {
     emailControlIsValid = true;
     passwordControlIsValid = true;
     isLogin = true;
+    isLoading = false;
 
     get emailCtrl() {
         return this.loginForm.get("email");
@@ -25,7 +29,10 @@ export class AuthComponent implements OnInit {
         return this.loginForm.get("password");
     }
 
-    constructor(private _router: RouterExtensions) {}
+    constructor(
+        private _router: RouterExtensions,
+        private _authService: AuthService
+    ) {}
 
     ngOnInit() {
         this.loginForm = new FormGroup({
@@ -50,13 +57,29 @@ export class AuthComponent implements OnInit {
 
     login() {
         this.onDone();
-        // if (!this.loginForm.valid) {
-        //     return;
-        // }
-        this._router.navigate(["/challenges"]);
-        this.loginForm.reset();
+        if (!this.loginForm.valid) {
+            return;
+        }
         this.emailControlIsValid = true;
         this.passwordControlIsValid = true;
+        this.isLoading = true;
+        if (this.isLogin) {
+            this._authService
+                .login(this.emailCtrl.value, this.passwordCtrl.value)
+                .pipe(finalize(() => (this.isLoading = false)))
+                .subscribe(() => {
+                    this.loginForm.reset();
+                    this._router.navigate(["/challenges"]);
+                });
+        } else {
+            this._authService
+                .signUp(this.emailCtrl.value, this.passwordCtrl.value)
+                .pipe(finalize(() => (this.isLoading = false)))
+                .subscribe(() => {
+                    this.loginForm.reset();
+                    this._router.navigate(["/challenges"]);
+                });
+        }
     }
 
     onDone() {
