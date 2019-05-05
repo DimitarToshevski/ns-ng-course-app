@@ -12,6 +12,7 @@ import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular/side-
 
 import { UIService } from "./shared/services/ui.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { AuthService } from "./shared/services/auth.service";
 
 @Component({
     selector: "ns-app",
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private _uiService: UIService,
         private _cdr: ChangeDetectorRef,
-        private _vcRef: ViewContainerRef
+        private _vcRef: ViewContainerRef,
+        private _authService: AuthService
     ) {}
 
     ngOnInit() {
@@ -39,6 +41,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         });
         this._uiService.setRootVCRef(this._vcRef);
+
+        this._authService.autoLogin().subscribe();
     }
 
     ngAfterViewInit() {
@@ -52,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
     onLogout() {
         this._uiService.toggleDrawer();
+        this._authService.logout();
     }
 
     ngOnDestroy() {

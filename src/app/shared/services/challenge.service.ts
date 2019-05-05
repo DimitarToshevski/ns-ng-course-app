@@ -20,6 +20,9 @@ export class ChallengeService {
     fetchCurrentChallenge() {
         return this._authService.user.pipe(
             switchMap(user => {
+                if (!user || !user.isAuthenticated) {
+                    return;
+                }
                 return this._http.get<Challenge>(
                     `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
                         user.token
@@ -108,6 +111,9 @@ export class ChallengeService {
         this._authService.user
             .pipe(
                 switchMap(user => {
+                    if (!user || !user.isAuthenticated) {
+                        return;
+                    }
                     return this._http.put(
                         `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
                             user.token

@@ -7,6 +7,17 @@ export class User {
     ) {}
 
     get token() {
+        if (
+            !this._token ||
+            !this._tokenExpirationDate ||
+            new Date() > this._tokenExpirationDate
+        ) {
+            return null;
+        }
         return this._token;
+    }
+
+    get isAuthenticated() {
+        return !!this.token;
     }
 }

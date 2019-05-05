@@ -1,11 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { tap, catchError } from "rxjs/operators";
-import { throwError, BehaviorSubject } from "rxjs";
+import { throwError, BehaviorSubject, of } from "rxjs";
 import { ErrorResponse } from "../enums/error-response.enum";
 import { alert } from "tns-core-modules/ui/dialogs";
 import { IAuthResponse } from "../interfaces/auth-response.interface";
 import { User } from "../models/user.model";
+import { RouterExtensions } from "nativescript-angular/router";
+import {
+    setString,
+    getString,
+    hasKey,
+    remove
+} from "tns-core-modules/application-settings";
 
 const FIREBASE_API_KEY = "AIzaSyD7OpMdUhH4w5p1Vro2i99uwoVxcffh1uE";
 
@@ -13,7 +20,7 @@ const FIREBASE_API_KEY = "AIzaSyD7OpMdUhH4w5p1Vro2i99uwoVxcffh1uE";
 export class AuthService {
     // prop to store the user in memory instead of the local storage
     private _user = new BehaviorSubject<User>(null);
-    constructor(private _http: HttpClient) {}
+    constructor(private _http: HttpClient, private _router: RouterExtensions) {}
 
     get user() {
         return this._user.asObservable();
@@ -57,18 +64,57 @@ export class AuthService {
             );
     }
 
+    logout() {
+        this._user.next(null);
+        //remove the data with that key from the device
+        remove("userData");
+        // clearHistry removes the back button
+        this._router.navigate(["/"], { clearHistory: true });
+    }
+
+    autoLogin() {
+        //check if there is data with that key in the device
+        if (!hasKey("userData")) {
+            return of(false);
+        }
+
+        const userData: {
+            email: string;
+            id: string;
+            _token: string;
+            _tokenExpirationDate: string;
+        } = JSON.parse(getString("userData"));
+
+        const loadedUser = new User(
+            userData.email,
+            userData.id,
+            userData._token,
+            new Date(userData._tokenExpirationDate)
+        );
+
+        if (loadedUser.isAuthenticated) {
+            this._user.next(loadedUser);
+            this._router.navigate(["/challenges"], { clearHistory: true });
+            return of(true);
+        }
+        return of(false);
+    }
+
     _handleAuthSuccess(user) {
         const exporationDate = new Date(
             new Date().getTime() +
                 // this comes in seconds and is converted to milliseconds
                 parseInt(user.expiresIn) * 1000
         );
+
         const loadedUser = new User(
             user.email,
             user.localId,
             user.idToken,
             exporationDate
         );
+        //storing the user in the device
+        setString("userData", JSON.stringify(loadedUser));
         this._user.next(loadedUser);
     }
 
