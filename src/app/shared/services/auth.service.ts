@@ -74,7 +74,7 @@ export class AuthService {
             clearTimeout(this._tokenExpirationTimer);
         }
         // clearHistry removes the back button
-        this._router.navigate(["/"], { clearHistory: true });
+        this._router.navigate(["/auth"], { clearHistory: true });
     }
 
     autoLogin() {
@@ -100,7 +100,6 @@ export class AuthService {
         if (loadedUser.isAuthenticated) {
             this._user.next(loadedUser);
             this.autoLogout(loadedUser.timeToExpiry);
-            this._router.navigate(["/challenges"], { clearHistory: true });
             return of(true);
         }
         return of(false);
@@ -113,7 +112,7 @@ export class AuthService {
     }
 
     _handleAuthSuccess(user) {
-        const exporationDate = new Date(
+        const expirationDate = new Date(
             new Date().getTime() +
                 // this comes in seconds and is converted to milliseconds
                 parseInt(user.expiresIn) * 1000
@@ -123,8 +122,9 @@ export class AuthService {
             user.email,
             user.localId,
             user.idToken,
-            exporationDate
+            expirationDate
         );
+
         //storing the user in the device
         setString("userData", JSON.stringify(loadedUser));
         this.autoLogout(loadedUser.timeToExpiry);

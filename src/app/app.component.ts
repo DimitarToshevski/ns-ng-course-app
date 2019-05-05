@@ -41,8 +41,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         });
         this._uiService.setRootVCRef(this._vcRef);
-
-        this._authService.autoLogin().subscribe();
     }
 
     ngAfterViewInit() {
