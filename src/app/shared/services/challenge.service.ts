@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Challenge } from "../../challenges/shared/models/challenge.model";
 import { DayStatus } from "../../challenges/shared/models/day.model";
-import { take, tap } from "rxjs/operators";
+import { take, tap, switchMap } from "rxjs/operators";
 import { ChallengeAction } from "../../challenges/shared/enums/challenge-actions.enum";
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: "root" })
 export class ChallengeService {
-    constructor(private _http: HttpClient) {}
+    constructor(private _http: HttpClient, private _authService: AuthService) {}
 
     private _currentChallenge = new BehaviorSubject<Challenge>(null);
 
@@ -17,25 +18,28 @@ export class ChallengeService {
     }
 
     fetchCurrentChallenge() {
-        return this._http
-            .get<Challenge>(
-                "https://nativescript-challenge-app.firebaseio.com/challenge.json"
-            )
-            .pipe(
-                tap(challenge => {
-                    if (challenge) {
-                        const loadedChallenge = new Challenge(
-                            challenge.title,
-                            challenge.description,
-                            challenge.year,
-                            challenge.month,
-                            challenge.days
-                        );
+        return this._authService.user.pipe(
+            switchMap(user => {
+                return this._http.get<Challenge>(
+                    `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
+                        user.token
+                    }`
+                );
+            }),
+            tap(challenge => {
+                if (challenge) {
+                    const loadedChallenge = new Challenge(
+                        challenge.title,
+                        challenge.description,
+                        challenge.year,
+                        challenge.month,
+                        challenge.days
+                    );
 
-                        this._currentChallenge.next(loadedChallenge);
-                    }
-                })
-            );
+                    this._currentChallenge.next(loadedChallenge);
+                }
+            })
+        );
     }
 
     createNewChallenge(title: string, description: string) {
@@ -101,10 +105,16 @@ export class ChallengeService {
     }
 
     private _saveToServer(challenge: Challenge) {
-        this._http
-            .put(
-                "https://nativescript-challenge-app.firebaseio.com/challenge.json",
-                challenge
+        this._authService.user
+            .pipe(
+                switchMap(user => {
+                    return this._http.put(
+                        `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
+                            user.token
+                        }`,
+                        challenge
+                    );
+                })
             )
             .subscribe();
     }
