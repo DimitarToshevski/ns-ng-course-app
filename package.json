@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.nsngapp",
+    "id": "com.toshevski.challengenativescriptapp",
     "tns-android": {
       "version": "5.2.1"
     },
