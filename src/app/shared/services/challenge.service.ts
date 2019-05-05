@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, of } from "rxjs";
+import { Injectable, OnDestroy } from "@angular/core";
+import { BehaviorSubject, of, Subscription } from "rxjs";
 import { Challenge } from "../../challenges/shared/models/challenge.model";
 import { DayStatus } from "../../challenges/shared/models/day.model";
 import { take, tap, switchMap } from "rxjs/operators";
@@ -8,8 +8,17 @@ import { HttpClient } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: "root" })
-export class ChallengeService {
-    constructor(private _http: HttpClient, private _authService: AuthService) {}
+export class ChallengeService implements OnDestroy {
+    private _userSubscription: Subscription;
+    constructor(private _http: HttpClient, private _authService: AuthService) {
+        this._userSubscription = this._authService.user.subscribe(
+            currentUser => {
+                if (!currentUser) {
+                    this._currentChallenge.next(null);
+                }
+            }
+        );
+    }
 
     private _currentChallenge = new BehaviorSubject<Challenge>(null);
 
@@ -24,10 +33,11 @@ export class ChallengeService {
                 if (!user || !user.isAuthenticated) {
                     return of(null);
                 }
+
                 return this._http.get<Challenge>(
-                    `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
-                        user.token
-                    }`
+                    `https://nativescript-challenge-app.firebaseio.com/challenge/${
+                        user.userId
+                    }.json?auth=${user.token}`
                 );
             }),
             tap(challenge => {
@@ -108,6 +118,10 @@ export class ChallengeService {
         }
     }
 
+    ngOnDestroy() {
+        this._userSubscription.unsubscribe();
+    }
+
     private _saveToServer(challenge: Challenge) {
         this._authService.user
             .pipe(
@@ -116,10 +130,11 @@ export class ChallengeService {
                     if (!user || !user.isAuthenticated) {
                         return of(null);
                     }
+
                     return this._http.put(
-                        `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
-                            user.token
-                        }`,
+                        `https://nativescript-challenge-app.firebaseio.com/challenge/${
+                            user.userId
+                        }.json?auth=${user.token}`,
                         challenge
                     );
                 })

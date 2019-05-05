@@ -85,14 +85,14 @@ export class AuthService {
 
         const userData: {
             email: string;
-            id: string;
+            userId: string;
             _token: string;
             _tokenExpirationDate: string;
         } = JSON.parse(getString("userData"));
 
         const loadedUser = new User(
             userData.email,
-            userData.id,
+            userData.userId,
             userData._token,
             new Date(userData._tokenExpirationDate)
         );
