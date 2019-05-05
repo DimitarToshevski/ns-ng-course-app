@@ -28,15 +28,17 @@
 <ScrollView>
   <FlexboxLayout class="page">
     <ns-no-challenge *ngIf="!currentChallenge"></ns-no-challenge>
-    <StackLayout *ngIf="currentChallenge">
+    <StackLayout *ngIf="currentChallenge" marginTop="10" marginBottom="10">
       <Label
         class="h1 text-center"
         textWrap="true"
+        width="100%"
         [text]="currentChallenge.title"
       ></Label>
       <Label
         class="body text-center fs-medium"
         textWrap="true"
+        width="100%"
         [text]="currentChallenge.description"
       >
       </Label>

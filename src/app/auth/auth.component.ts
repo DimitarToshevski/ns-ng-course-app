@@ -69,7 +69,9 @@ export class AuthComponent implements OnInit {
                 .pipe(finalize(() => (this.isLoading = false)))
                 .subscribe(() => {
                     this.loginForm.reset();
-                    this._router.navigate(["/challenges"]);
+                    this._router.navigate(["/challenges"], {
+                        clearHistory: true
+                    });
                 });
         } else {
             this._authService
@@ -77,7 +79,9 @@ export class AuthComponent implements OnInit {
                 .pipe(finalize(() => (this.isLoading = false)))
                 .subscribe(() => {
                     this.loginForm.reset();
-                    this._router.navigate(["/challenges"]);
+                    this._router.navigate(["/challenges"], {
+                        clearHistory: true
+                    });
                 });
         }
     }
