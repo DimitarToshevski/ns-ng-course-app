@@ -18,13 +18,15 @@ const FIREBASE_API_KEY = "AIzaSyD7OpMdUhH4w5p1Vro2i99uwoVxcffh1uE";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-    // prop to store the user in memory instead of the local storage
-    private _user = new BehaviorSubject<User>(null);
-    constructor(private _http: HttpClient, private _router: RouterExtensions) {}
-
     get user() {
         return this._user.asObservable();
     }
+
+    // prop to store the user in memory instead of the local storage
+    private _user = new BehaviorSubject<User>(null);
+    private _tokenExpirationTimer: number;
+
+    constructor(private _http: HttpClient, private _router: RouterExtensions) {}
 
     signUp(email: string, password: string) {
         return this._http
@@ -68,6 +70,9 @@ export class AuthService {
         this._user.next(null);
         //remove the data with that key from the device
         remove("userData");
+        if (this._tokenExpirationTimer) {
+            clearTimeout(this._tokenExpirationTimer);
+        }
         // clearHistry removes the back button
         this._router.navigate(["/"], { clearHistory: true });
     }
@@ -94,10 +99,17 @@ export class AuthService {
 
         if (loadedUser.isAuthenticated) {
             this._user.next(loadedUser);
+            this.autoLogout(loadedUser.timeToExpiry);
             this._router.navigate(["/challenges"], { clearHistory: true });
             return of(true);
         }
         return of(false);
+    }
+
+    autoLogout(expiryDuration: number) {
+        setTimeout(() => {
+            this.logout();
+        }, expiryDuration);
     }
 
     _handleAuthSuccess(user) {
@@ -115,6 +127,7 @@ export class AuthService {
         );
         //storing the user in the device
         setString("userData", JSON.stringify(loadedUser));
+        this.autoLogout(loadedUser.timeToExpiry);
         this._user.next(loadedUser);
     }
 

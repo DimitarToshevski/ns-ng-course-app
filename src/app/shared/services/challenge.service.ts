@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, of } from "rxjs";
 import { Challenge } from "../../challenges/shared/models/challenge.model";
 import { DayStatus } from "../../challenges/shared/models/day.model";
 import { take, tap, switchMap } from "rxjs/operators";
@@ -19,9 +19,10 @@ export class ChallengeService {
 
     fetchCurrentChallenge() {
         return this._authService.user.pipe(
+            take(1),
             switchMap(user => {
                 if (!user || !user.isAuthenticated) {
-                    return;
+                    return of(null);
                 }
                 return this._http.get<Challenge>(
                     `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${
@@ -110,9 +111,10 @@ export class ChallengeService {
     private _saveToServer(challenge: Challenge) {
         this._authService.user
             .pipe(
+                take(1),
                 switchMap(user => {
                     if (!user || !user.isAuthenticated) {
-                        return;
+                        return of(null);
                     }
                     return this._http.put(
                         `https://nativescript-challenge-app.firebaseio.com/challenge.json?auth=${

@@ -20,4 +20,8 @@ export class User {
     get isAuthenticated() {
         return !!this.token;
     }
+
+    get timeToExpiry() {
+        return this._tokenExpirationDate.getTime() - new Date().getTime();
+    }
 }
