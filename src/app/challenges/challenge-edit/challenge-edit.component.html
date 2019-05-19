@@ -48,8 +48,9 @@
     </Label>
   </StackLayout>
   <Button
-    class="btn-primary"
+    class="btn btn-primary"
     text="Save"
+    width="40%"
     [isEnabled]="titleCtrl.valid && descriptionCtrl.valid"
     (tap)="onSubmit(titleCtrl.value, descriptionCtrl.value)"
   >

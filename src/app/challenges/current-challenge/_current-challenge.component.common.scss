@@ -1,10 +1,14 @@
 @import '../../../theme/colors';
 
 .page {
+    background-image: url("res://nature");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20;
+    padding: 20;
 }
 
 .week-day-label {
